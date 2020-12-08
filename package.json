@@ -1,11 +1,8 @@
 {
-  "name": "react",
+  "name": "WinXpGlitchTrail.js",
   "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "Throwback to when glitches were fun",
+  "keywords": ["react", "windowsXP"],
   "main": "src/index.js",
   "dependencies": {
     "98.css": "0.1.4",
@@ -24,10 +21,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }
