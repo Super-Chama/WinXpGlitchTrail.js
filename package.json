@@ -1,8 +1,8 @@
 {
-  "name": "WinXpGlitchTrail.js",
+  "name": "winxpglitchtrail",
   "version": "1.0.0",
-  "description": "Throwback to when glitches were fun",
-  "keywords": ["react", "windowsXP"],
+  "description": "One day experiment to see if i can bring back the nostalgia of Windows XP.",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "98.css": "0.1.4",
@@ -21,5 +21,10 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

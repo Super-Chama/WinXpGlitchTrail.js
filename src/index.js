@@ -4,11 +4,25 @@ import Draggable from "react-draggable";
 import "xp.css/dist/XP.css";
 import errorLogo from "../public/Error3.png";
 
-const DummyWindow = ({ style }) => {
+const DummyWindow = ({
+  style,
+  className,
+  onMouseDown,
+  onMouseUp,
+  onTouchStart,
+  onTouchEnd
+}) => {
   return (
-    <div style={style} className="window">
+    <div
+      style={style}
+      className={className}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
       <div className="title-bar">
-        <div className="title-bar-text">Fatal Error</div>
+        <div className="title-bar-text unselectable">Fatal Error</div>
         <div className="title-bar-controls">
           <button aria-label="Close" />
         </div>
@@ -16,14 +30,16 @@ const DummyWindow = ({ style }) => {
 
       <div className="window-body">
         <span style={{ justifyContent: "center", display: "flex" }}>
-          <img src={errorLogo} alt="Logo" />
-          <p style={{ marginLeft: "10px" }}>Failed to load someodd.dll</p>
+          <img className="unselectable" src={errorLogo} alt="Logo" />
+          <p className="unselectable" style={{ marginLeft: "10px" }}>
+            Failed to load someodd.dll
+          </p>
         </span>
         <div
           className="field-row"
           style={{ justifyContent: "center", marginTop: "20px" }}
         >
-          <button>Ok</button>
+          <button className="unselectable">Ok</button>
         </div>
       </div>
     </div>
@@ -38,8 +54,6 @@ const DraggableWindow = (props) => {
     }
   });
 
-  const [active, setActive] = React.useState(0);
-
   const handleDrag = (e, ui) => {
     const { x, y } = dragState.deltaPosition;
     props.onDragWindow(x + ui.deltaX, y + ui.deltaY);
@@ -51,16 +65,9 @@ const DraggableWindow = (props) => {
     });
   };
 
-  const activate = () => {
-    setActive(1);
-  };
-
-  const passIt = () => {
-    // props.doIt();
-  };
+  const activate = () => {};
 
   const deactivate = () => {
-    setActive(0);
     props.onStopDrag();
   };
 
@@ -69,36 +76,17 @@ const DraggableWindow = (props) => {
       axis="both"
       handle=".title-bar"
       defaultPosition={{ x: 0, y: 0 }}
+      bounds=".bwindow"
       position={null}
       scale={1}
       onStart={() => activate()}
       onDrag={(e, ui) => handleDrag(e, ui)}
       onStop={() => deactivate()}
     >
-      <div
-        style={{ width: 225, position: "absolute", zIndex: 999 }}
+      <DummyWindow
         className="window"
-      >
-        <div className="title-bar">
-          <div className="title-bar-text">Fatal Error</div>
-          <div className="title-bar-controls">
-            <button aria-label="Close" />
-          </div>
-        </div>
-
-        <div className="window-body">
-          <span style={{ justifyContent: "center", display: "flex" }}>
-            <img src={errorLogo} alt="Logo" />
-            <p style={{ marginLeft: "10px" }}>Failed to load someodd.dll</p>
-          </span>
-          <div
-            className="field-row"
-            style={{ justifyContent: "center", marginTop: "20px" }}
-          >
-            <button onClick={() => passIt()}>Ok</button>
-          </div>
-        </div>
-      </div>
+        style={{ width: 225, position: "absolute", zIndex: 999 }}
+      />
     </Draggable>
   );
 };
@@ -109,13 +97,12 @@ const App = () => {
   ]);
 
   const moveIt = (x, y) => {
-    // console.log(x, y);
     let lastWindow = dummyWindowsArray[dummyWindowsArray.length - 1];
     setdummyWindowsArray([
       ...dummyWindowsArray,
       { x: x + 5, y: y + 5, i: lastWindow ? lastWindow.i + 1 : 1 }
     ]);
-    cleanUp(100);
+    cleanUp(200);
   };
 
   const cleanUp = (length) => {
@@ -145,6 +132,7 @@ const App = () => {
         return (
           <DummyWindow
             key={i}
+            className="window"
             style={{
               width: 225,
               position: "absolute",
@@ -168,6 +156,7 @@ ReactDOM.render(
         justifyContent: "center",
         alignItems: "center"
       }}
+      className="bwindow"
     >
       <div style={{ width: 350 }}>
         <App />
